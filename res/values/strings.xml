@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Bucky_authority">net.tedstein.bucky.buckyprovider</string>
+    <string name="hello">Hello World, Bucky!</string>
+    <string name="app_name"></string>
+<string name="NoDatasetsMessage">You don\'t have any data yet! Press Menu and choose &quot;Add dataset&quot; to get started.</string>
+</resources>
