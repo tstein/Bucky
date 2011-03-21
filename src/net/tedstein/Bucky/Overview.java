@@ -30,7 +30,7 @@ public class Overview extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.add_dataset:
-			startActivity(new Intent(this, NewSetActivity.class));
+			startActivity(new Intent(this, CreateSet.class));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

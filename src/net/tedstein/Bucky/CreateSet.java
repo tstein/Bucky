@@ -12,7 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class NewSetActivity extends Activity {
+public class CreateSet extends Activity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "Bucky";
 
