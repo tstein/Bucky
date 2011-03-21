@@ -12,6 +12,7 @@
 
     <!-- menu item text -->
     <string name="add_dataset_menu">Add dataset</string>
+    <string name="add_datapoint_menu">Add datapoint</string>
 
     <!-- messages -->
     <string name="no_datasets_message">You don\'t have any data yet! Press Menu and choose &quot;Add dataset&quot; to get started.</string>
