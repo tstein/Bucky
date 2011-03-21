@@ -1,56 +1,20 @@
 package net.tedstein.Bucky;
 
-import java.util.Date;
-
+import net.tedstein.Bucky.util.DatasetCursorAdapter;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class Overview extends Activity {
 	private static final String TAG = "Bucky";
 
 	private int total_sets = 0;
-
-
-	private class DatasetCursorAdapter extends CursorAdapter {
-		private int layout;
-
-		public DatasetCursorAdapter(Context context, Cursor c, int layout) {
-			super(context, c);
-			this.layout = layout;
-		}
-
-		@Override
-		public View newView(Context context, Cursor cursor, ViewGroup parent) {
-			LayoutInflater infl = LayoutInflater.from(context);
-			View set_view = infl.inflate(layout, parent, false);
-			return set_view;
-		}
-
-		@Override
-		public void bindView(View view, Context context, Cursor cursor) {
-			TextView name = (TextView)view.findViewById(R.id.OverviewItemName);
-			TextView date = (TextView)view.findViewById(R.id.OverviewItemDate);
-
-			int name_index = cursor.getColumnIndex(BuckyProvider.DS_NAME);
-			int date_index = cursor.getColumnIndex(BuckyProvider.DS_WHENCREATED);
-
-			name.setText(cursor.getString(name_index));
-			date.setText(new Date(cursor.getLong(date_index)).toString());
-		}
-	}
 
 
 
