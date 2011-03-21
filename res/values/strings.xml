@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Bucky_authority">net.tedstein.bucky.buckyprovider</string>
-    <string name="hello">Hello World, Bucky!</string>
-    <string name="app_name"></string>
-<string name="NoDatasetsMessage">You don\'t have any data yet! Press Menu and choose &quot;Add dataset&quot; to get started.</string>
+    <!-- Activity labels -->
+    <string name="app_name">Bucky</string>
+    <string name="new_dataset_prompt">New dataset</string>
+
+    <!-- field labels and hints -->
+    <string name="new_set_submit">create</string>
+    <string name="new_set_name_prompt">dataset name</string>
+    <string name="new_set_numeric_type">numeric</string>
+    <string name="new_set_text_type">text</string>
+
+    <!-- menu item text -->
+    <string name="add_dataset_menu">Add dataset</string>
+
+    <!-- messages -->
+    <string name="no_datasets_message">You don\'t have any data yet! Press Menu and choose &quot;Add dataset&quot; to get started.</string>
 </resources>

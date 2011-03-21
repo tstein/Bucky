@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <LinearLayout android:id="@+id/NewSetLayout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout android:id="@+id/NewSetSubLayout"
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent">    
+      <EditText android:id="@+id/NewSetNameBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:singleLine="true"
+        android:hint="@string/new_set_name_prompt"
+        android:nextFocusDown="@+id/NewSetSubmitButton"/>
+      <Button android:id="@+id/NewSetSubmitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginLeft="3dip"
+        android:text="@string/new_set_submit"/>
+    </LinearLayout>
+    <RadioGroup android:id="@+id/NewSetTypeRadioGroup"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:checkedButton="@+id/NewSetNumericRadioButton">
+      <RadioButton android:id="@+id/NewSetNumericRadioButton"
+        android:layout_width="fill_parent"
+        android:layout_weight="2"
+        android:text="@string/new_set_numeric_type"/>
+	  <RadioButton android:id="@+id/NewSetTextRadioButton"
+		android:layout_width="fill_parent"
+		android:layout_weight="2"
+        android:text="@string/new_set_text_type" />
+    </RadioGroup>
+  </LinearLayout>
+</ScrollView>

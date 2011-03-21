@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/OverviewScrollView"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-	<TextView android:id="@+id/NoDatasetsTextView"
-	    android:text="@string/NoDatasetsMessage" 
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:gravity="center">
-	</TextView>
-</ScrollView>
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/OverviewSetList"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"/>
