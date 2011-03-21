@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/overview_menu">
+  <item android:id="@+id/add_dataset"
+    android:icon="@android:drawable/ic_menu_add"
+    android:title="@string/add_dataset_menu"/>
+  <item android:id="@+id/add_datapoint"
+    android:icon="@android:drawable/ic_menu_add"
+    android:title="@string/add_datapoint_menu"/>
+</menu>
