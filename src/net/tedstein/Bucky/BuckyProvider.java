@@ -31,7 +31,7 @@ public class BuckyProvider extends ContentProvider {
 	public static final Uri DATASETS_URI = Uri.parse(
 			"content://" + AUTHORITY + "/" + DATASET_TABLE);
 	public static final Uri DATAPOINTS_URI = Uri.parse(
-			"content://" + AUTHORITY + "/" +DATAPOINT_TABLE);
+			"content://" + AUTHORITY + "/" + DATAPOINT_TABLE);
 
 	public static final int NO_DATASET = 0;
 	public static enum Datatype {BAG, SERIES, HASHMAP};
@@ -204,6 +204,7 @@ public class BuckyProvider extends ContentProvider {
 		case DATAPOINTS:
 			qb.setTables(DATAPOINT_TABLE);
 			qb.setProjectionMap(DATAPOINT_PROJECTION_MAP);
+			break;
 		default:
 			throw new IllegalArgumentException("query: unmatched URI: " + uri);
 		}
