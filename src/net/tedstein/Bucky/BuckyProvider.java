@@ -136,7 +136,7 @@ public class BuckyProvider extends ContentProvider {
 		case DATAPOINTS:
 			return DATAPOINT_TYPE;
 		default:
-			throw new IllegalArgumentException("Unmatched URI: " + uri);
+			throw new IllegalArgumentException("getType: unmatched URI: " + uri);
 		}
 	}
 
@@ -172,7 +172,7 @@ public class BuckyProvider extends ContentProvider {
 			getContext().getContentResolver().notifyChange(datapoint_uri, null);
 			return datapoint_uri;
 		default:
-			throw new IllegalArgumentException("Unmatched URI: " + uri);
+			throw new IllegalArgumentException("insert: unmatched URI: " + uri);
 		}
 	}
 
@@ -205,7 +205,7 @@ public class BuckyProvider extends ContentProvider {
 			qb.setTables(DATAPOINT_TABLE);
 			qb.setProjectionMap(DATAPOINT_PROJECTION_MAP);
 		default:
-			throw new IllegalArgumentException("Unmatched URI: " + uri);
+			throw new IllegalArgumentException("query: unmatched URI: " + uri);
 		}
 
 		SQLiteDatabase db = dbh.getReadableDatabase();
