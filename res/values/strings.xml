@@ -5,14 +5,26 @@
     <string name="new_dataset_prompt">New dataset</string>
 
     <!-- field labels and hints -->
+    <!-- new set -->
     <string name="new_set_submit">create</string>
     <string name="new_set_name_prompt">dataset name</string>
     <string name="new_set_numeric_type">numeric</string>
     <string name="new_set_text_type">text</string>
+    <!-- new point -->
+    <string name="new_point_submit">add</string>
+    <string name="new_point_now">now?</string>
+    <!-- set detail -->
+    <string name="set_details">Dataset details</string>
+    <string name="mean">mean</string>
+    <string name="median">median</string>
+    <string name="mode">mode</string>
+    <string name="minimum">min</string>
+    <string name="maximum">max</string>
 
     <!-- menu item text -->
     <string name="add_dataset_menu">Add dataset</string>
     <string name="add_datapoint_menu">Add datapoint</string>
+    <string name="preferences_menu">Preferences</string>
 
     <!-- messages -->
     <string name="no_datasets_message">You don\'t have any data yet! Press Menu and choose &quot;Add dataset&quot; to get started.</string>

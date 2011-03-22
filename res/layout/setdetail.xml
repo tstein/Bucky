@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical">
+  <LinearLayout android:id="@+id/SetDetailHeader"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="7dip"
+    android:paddingBottom="15dip">
+    <LinearLayout android:id="@+id/SetDetailNameDate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+      <TextView android:id="@+id/SetDetailName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textSize="30dip"/>
+      <TextView android:id="@+id/SetDetailDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textSize="14dip"/>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/SetDetailStats"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:orientation="horizontal">
+      <LinearLayout android:id="@+id/SetDetailMean"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView android:id="@+id/SetDetailMeanLabel"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:layout_weight="1"
+          android:gravity="bottom|center_horizontal"
+          android:text="@string/mean"/>
+        <TextView android:id="@+id/SetDetailMeanValue"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="0"
+          android:gravity="bottom|center_horizontal"
+          android:textSize="20dip"/>
+      </LinearLayout>
+      <LinearLayout android:id="@+id/SetDetailMin"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView android:id="@+id/SetDetailMinLabel"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:layout_weight="1"
+          android:gravity="bottom|center_horizontal"
+          android:text="@string/minimum"/>
+        <TextView android:id="@+id/SetDetailMinValue"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="0"
+          android:gravity="bottom|center_horizontal"
+          android:textSize="20dip"/>
+      </LinearLayout>
+      <LinearLayout android:id="@+id/SetDetailMax"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView android:id="@+id/SetDetailMaxLabel"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:layout_weight="1"
+          android:gravity="bottom|center_horizontal"
+          android:text="@string/maximum"/>
+        <TextView android:id="@+id/SetDetailMaxValue"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="0"
+          android:gravity="bottom|center_horizontal"
+          android:textSize="20dip"/>
+      </LinearLayout>
+    </LinearLayout>
+  </LinearLayout>
+  <ListView android:id="@+id/SetDetailData"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"/>
+</LinearLayout>

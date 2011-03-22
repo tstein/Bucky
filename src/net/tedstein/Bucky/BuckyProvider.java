@@ -165,7 +165,7 @@ public class BuckyProvider extends ContentProvider {
 			}
 
 			db = dbh.getWritableDatabase();
-			rowId = db.insert(DATASET_TABLE, null, values);
+			rowId = db.insert(DATAPOINT_TABLE, null, values);
 			Uri datapoint_uri = ContentUris.withAppendedId(uri, rowId);
 
 			// Good form to notify observers, even though we may not need this functionality.

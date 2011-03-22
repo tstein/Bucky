@@ -4,13 +4,16 @@
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical"
-  android:padding="4dip">
-  <TextView android:id="@+id/OverviewItemName"
+  android:padding="2dip">
+  <TextView android:id="@+id/SetDetailItemValue"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:textSize="30dip"/>
-  <TextView android:id="@+id/OverviewItemDate"
+    android:gravity="left"
+    android:paddingLeft="7dip"
+    android:textSize="20dip"/>
+  <TextView android:id="@+id/SetDetailItemDate"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:gravity="right"
     android:textSize="14dip"/>
 </LinearLayout>

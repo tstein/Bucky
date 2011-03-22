@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-public class DatasetCursorAdapter extends CursorAdapter {
+public class DatapointCursorAdapter extends CursorAdapter {
 	private int layout;
 
-	public DatasetCursorAdapter(Context context, Cursor c, int layout) {
+	public DatapointCursorAdapter(Context context, Cursor c, int layout) {
 		super(context, c);
 		this.layout = layout;
 	}
@@ -29,14 +29,14 @@ public class DatasetCursorAdapter extends CursorAdapter {
 
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
-		TextView name = (TextView)view.findViewById(R.id.OverviewItemName);
-		TextView date = (TextView)view.findViewById(R.id.OverviewItemDate);
+		TextView value= (TextView)view.findViewById(R.id.SetDetailItemValue);
+		TextView date = (TextView)view.findViewById(R.id.SetDetailItemDate);
 
-		int id_index = cursor.getColumnIndex(BuckyProvider.DS_ID);
-		int name_index = cursor.getColumnIndex(BuckyProvider.DS_NAME);
-		int date_index = cursor.getColumnIndex(BuckyProvider.DS_WHENCREATED);
+		int id_index = cursor.getColumnIndex(BuckyProvider.DP_ID);
+		int value_index = cursor.getColumnIndex(BuckyProvider.DP_VALUE);
+		int date_index = cursor.getColumnIndex(BuckyProvider.DP_WHENCREATED);
 
-		name.setText(cursor.getString(name_index));
+		value.setText(cursor.getString(value_index));
 		date.setText(new Date(cursor.getLong(date_index)).toString());
 
 		// Store an Integer with the set's ID as view's tag for later retrieval.
