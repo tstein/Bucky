@@ -26,7 +26,6 @@ public class BuckyProvider extends ContentProvider {
 	public static final String DATASET_TYPE = "net.tedstein.bucky.dataset";
 	public static final String DATAPOINT_TYPE = "net.tedstein.bucky.datapoint";
 
-
 	public static final Uri CONTENT_URI = Uri.parse(
 			"content://" + AUTHORITY);
 	public static final Uri DATASETS_URI = Uri.parse(
@@ -34,6 +33,7 @@ public class BuckyProvider extends ContentProvider {
 	public static final Uri DATAPOINTS_URI = Uri.parse(
 			"content://" + AUTHORITY + "/" +DATAPOINT_TABLE);
 
+	public static final int NO_DATASET = 0;
 	public static enum Datatype {BAG, SERIES, HASHMAP};
 	public static enum URIPattern {DATASET, DATAPOINTS};
 
