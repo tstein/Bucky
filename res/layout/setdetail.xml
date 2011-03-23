@@ -84,6 +84,10 @@
       </LinearLayout>
     </LinearLayout>
   </LinearLayout>
+  <LinearLayout android:id="@+id/SetDetailHeaderBorder"
+    android:layout_width="fill_parent"
+    android:layout_height="2dip"
+    android:background="@drawable/gray_separator"/>
   <ListView android:id="@+id/SetDetailData"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"/>
