@@ -109,19 +109,6 @@ public class BuckyProvider extends ContentProvider {
 	}
 
 
-
-
-	private boolean validateSetCV(ContentValues cv) {
-		// TODO: validate!
-		return true;
-	}
-
-	private boolean validatePointCV(ContentValues cv) {
-		// TODO: validate!
-		return true;
-	}
-
-
 	@Override
 	public boolean onCreate() {
 		dbh = new DatabaseHelper(getContext());
@@ -148,10 +135,6 @@ public class BuckyProvider extends ContentProvider {
 
 		switch (URIPattern.values()[urim.match(uri)]) {
 		case DATASET:
-			if (validateSetCV(values) == false) {
-				throw new IllegalArgumentException("Invalid values for a dataset: " + values);
-			}
-
 			db = dbh.getWritableDatabase();
 			rowId = db.insert(DATASET_TABLE, null, values);
 			Uri dataset_uri = ContentUris.withAppendedId(uri, rowId);
@@ -160,10 +143,6 @@ public class BuckyProvider extends ContentProvider {
 			getContext().getContentResolver().notifyChange(dataset_uri, null);
 			return dataset_uri;
 		case DATAPOINTS:
-			if (validatePointCV(values) == false) {
-				throw new IllegalArgumentException("Invalid values for a datapoint: " + values);
-			}
-
 			db = dbh.getWritableDatabase();
 			rowId = db.insert(DATAPOINT_TABLE, null, values);
 			Uri datapoint_uri = ContentUris.withAppendedId(uri, rowId);
