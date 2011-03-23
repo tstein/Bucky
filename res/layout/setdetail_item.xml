@@ -3,17 +3,19 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
-  android:orientation="vertical"
+  android:orientation="horizontal"
   android:padding="2dip">
   <TextView android:id="@+id/SetDetailItemValue"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:layout_weight="1"
     android:gravity="left"
     android:paddingLeft="7dip"
     android:textSize="20dip"/>
   <TextView android:id="@+id/SetDetailItemDate"
-    android:layout_width="fill_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="right"
+    android:layout_weight="0"
+    android:gravity="bottom|right"
     android:textSize="14dip"/>
 </LinearLayout>
