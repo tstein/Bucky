@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -89,13 +90,13 @@ public class SetDetail extends Activity {
         assert this.setID != BuckyProvider.NO_DATASET : "SetDetail was started without a dataset!";
 
         // Retrieve general info from the datasets table.
-        Cursor sets = managedQuery(BuckyProvider.DATASETS_URI,
+        Cursor sets = managedQuery(
+                Uri.withAppendedPath(BuckyProvider.DATASETS_URI, String.valueOf(this.setID)),
         		new String[] {
         			BuckyProvider.DS_NAME,
         			BuckyProvider.DS_WHENCREATED },
-        		BuckyProvider.DS_ID + "=?",
-        		new String[] {
-        			String.valueOf(this.setID) },
+                null,
+                null,
         		null);
         int name_index = sets.getColumnIndex(BuckyProvider.DS_NAME);
         int whencreated_index = sets.getColumnIndex(BuckyProvider.DS_WHENCREATED);

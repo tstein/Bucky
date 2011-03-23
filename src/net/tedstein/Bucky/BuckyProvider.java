@@ -35,7 +35,7 @@ public class BuckyProvider extends ContentProvider {
 
 	public static final int NO_DATASET = 0;
 	public static enum Datatype {BAG, SERIES, HASHMAP};
-	public static enum URIPattern {DATASET, DATAPOINTS};
+	public static enum URIPattern {DATASETS, SINGLE_DATASET, DATAPOINTS, SINGLE_DATAPOINT};
 
 	// Column constants.
 	// dataset table columns:
@@ -94,8 +94,10 @@ public class BuckyProvider extends ContentProvider {
 	static {
 		// Set up our URI matcher.
 		urim = new UriMatcher(UriMatcher.NO_MATCH);
-		urim.addURI(AUTHORITY, DATASET_TABLE, URIPattern.DATASET.ordinal());
+		urim.addURI(AUTHORITY, DATASET_TABLE, URIPattern.DATASETS.ordinal());
+		urim.addURI(AUTHORITY, DATASET_TABLE + "/#", URIPattern.SINGLE_DATASET.ordinal());
 		urim.addURI(AUTHORITY, DATAPOINT_TABLE, URIPattern.DATAPOINTS.ordinal());
+		urim.addURI(AUTHORITY, DATAPOINT_TABLE + "/#", URIPattern.SINGLE_DATAPOINT.ordinal());
 
 		// Set up our projection maps.
 		DATASET_PROJECTION_MAP = new HashMap<String, String>();
@@ -118,7 +120,7 @@ public class BuckyProvider extends ContentProvider {
 	@Override
 	public String getType(Uri uri) {
 		switch (URIPattern.values()[urim.match(uri)]) {
-		case DATASET:
+		case DATASETS:
 			return DATASET_TYPE;
 		case DATAPOINTS:
 			return DATAPOINT_TYPE;
@@ -134,7 +136,7 @@ public class BuckyProvider extends ContentProvider {
 		long rowId;
 
 		switch (URIPattern.values()[urim.match(uri)]) {
-		case DATASET:
+		case DATASETS:
 			db = dbh.getWritableDatabase();
 			rowId = db.insert(DATASET_TABLE, null, values);
 			Uri dataset_uri = ContentUris.withAppendedId(uri, rowId);
@@ -150,6 +152,9 @@ public class BuckyProvider extends ContentProvider {
 			// Good form to notify observers, even though we may not need this functionality.
 			getContext().getContentResolver().notifyChange(datapoint_uri, null);
 			return datapoint_uri;
+		case SINGLE_DATASET:
+		case SINGLE_DATAPOINT:
+			throw new IllegalArgumentException("insert: cannot insert on specific rowId: " + uri);
 		default:
 			throw new IllegalArgumentException("insert: unmatched URI: " + uri);
 		}
@@ -176,10 +181,52 @@ public class BuckyProvider extends ContentProvider {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		switch (URIPattern.values()[urim.match(uri)]) {
-		case DATASET:
+		case SINGLE_DATASET:
+			if (selection == null || selection.equals("")) {
+				selection = DS_ID + "=?";
+			} else {
+				selection += " AND " + DS_ID + "=?";
+			}
+
+			if (selectionArgs == null) {
+				selectionArgs = new String[1];
+				selectionArgs[0] = uri.getPathSegments().get(1);
+			} else {
+				// Copy the array to a slightly larger one to make space.
+				int old_size = selectionArgs.length;
+				String[] tmp = new String[old_size + 1];
+				for (int i = 0; i < old_size; ++i) {
+					tmp[i] = selectionArgs[i];
+				}
+				tmp[old_size] = uri.getPathSegments().get(1);
+				selectionArgs = tmp;
+			}
+			// Fall through to the unspecified dataset URI handling code.
+		case DATASETS:
 			qb.setTables(DATASET_TABLE);
 			qb.setProjectionMap(DATASET_PROJECTION_MAP);
 			break;
+		case SINGLE_DATAPOINT:
+			if (selection == null || selection.equals("")) {
+				selection = DP_ID + "=?";
+			} else {
+				selection += " AND " + DP_ID + "=?";
+			}
+
+			if (selectionArgs == null) {
+				selectionArgs = new String[1];
+				selectionArgs[0] = uri.getPathSegments().get(1);
+			} else {
+				// Copy the array to a slightly larger one to make space.
+				int old_size = selectionArgs.length;
+				String[] tmp = new String[old_size + 1];
+				for (int i = 0; i < old_size; ++i) {
+					tmp[i] = selectionArgs[i];
+				}
+				tmp[old_size] = uri.getPathSegments().get(1);
+				selectionArgs = tmp;
+			}
+			// Fall through to the unspecified datapoint URI handling code.
 		case DATAPOINTS:
 			qb.setTables(DATAPOINT_TABLE);
 			qb.setProjectionMap(DATAPOINT_PROJECTION_MAP);
