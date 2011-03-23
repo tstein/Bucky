@@ -78,7 +78,7 @@ public class BuckyProvider extends ContentProvider {
 		
 			db.execSQL("CREATE TABLE " + DATAPOINT_TABLE + " ("
 					+ DP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ DP_SETID + " INTEGER, "
+					+ DP_SETID + " INTEGER REFERENCES " + DATASET_TABLE + "(" + DS_ID + "), "
 					+ DP_WHENCREATED + " INTEGER, "
 					+ DP_KEY + " TEXT, "
 					+ DP_VALUE + " TEXT"
