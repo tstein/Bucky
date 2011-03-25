@@ -84,6 +84,9 @@ public class Overview extends Activity {
         final ContentResolver cr = getContentResolver();
 
         switch (item.getItemId()) {
+        case R.id.overview_item_context_add_point:
+            DatapointAdder.createAddPointDialog(context, set_id);
+            return true;
         case R.id.overview_item_context_delete:
             new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.dataset_delete_prompt, name))
