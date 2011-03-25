@@ -8,6 +8,7 @@ import net.tedstein.Bucky.util.DatapointCursorAdapter;
 import org.apache.commons.math.stat.descriptive.SummaryStatistics;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -15,9 +16,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +54,44 @@ public class SetDetail extends Activity {
             return super.onOptionsItemSelected(item);
         }
     }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        // Retrieve the TextView of the selected item so we can set a useful title.
+        LinearLayout item_view = (LinearLayout)((AdapterContextMenuInfo)menuInfo).targetView;
+        TextView data_view = (TextView)item_view.getChildAt(0);
+        CharSequence data = data_view.getText();
+        menu.setHeaderTitle(data);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.setdetail_item_context, menu);
+    }
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+        int point_id = (Integer)info.targetView.getTag();
+        ContentResolver cr = getContentResolver();
+
+        switch (item.getItemId()) {
+        case R.id.setdetail_item_context_edit:
+            // TODO
+            return true;
+        case R.id.setdetail_item_context_delete:
+            String where = BuckyProvider.DP_ID + "=?";
+            String[] whereArgs = new String[] {
+                String.valueOf(point_id) };
+            cr.delete(BuckyProvider.DATAPOINTS_URI, where, whereArgs);
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
+    }
+
 
 
     private void updateStats() {
@@ -122,6 +165,7 @@ public class SetDetail extends Activity {
                 this.mPointsCursor,
                 R.layout.setdetail_item);
         points_list.setAdapter(points_adapter);
+        registerForContextMenu(points_list);
     }
 
 
