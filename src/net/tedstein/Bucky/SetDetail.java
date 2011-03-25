@@ -23,37 +23,37 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class SetDetail extends Activity {
-	private static final String TAG = "Bucky";
+    private static final String TAG = "Bucky";
 
-	private int setID;
-	private Cursor mPointsCursor;
-	private SummaryStatistics mSummaryStatistics;
-
-
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.setdetail, menu);
-		return true;
-	}
-
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.setdetail_add_datapoint:
-			DatapointAdder.createAddPointDialog(this, this.setID);
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+    private int setID;
+    private Cursor mPointsCursor;
+    private SummaryStatistics mSummaryStatistics;
 
 
-	private void updateStats() {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.setdetail, menu);
+        return true;
+    }
+
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.setdetail_add_datapoint:
+            DatapointAdder.createAddPointDialog(this, this.setID);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    private void updateStats() {
         // Do a single pass over the data to collect stats.
-		mSummaryStatistics.clear();
+        mSummaryStatistics.clear();
         int value_index = mPointsCursor.getColumnIndex(BuckyProvider.DP_VALUE);
         mPointsCursor.moveToFirst();
         while (mPointsCursor.isAfterLast() == false) {
@@ -69,10 +69,10 @@ public class SetDetail extends Activity {
         mean.setText(String.format("%.2f", mSummaryStatistics.getMean()));
         min.setText(String.valueOf(mSummaryStatistics.getMin()));
         max.setText(String.valueOf(mSummaryStatistics.getMax()));
-	}
+    }
 
 
-	@Override
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setdetail);
@@ -96,12 +96,12 @@ public class SetDetail extends Activity {
         // Retrieve general info from the datasets table.
         Cursor sets = managedQuery(
                 Uri.withAppendedPath(BuckyProvider.DATASETS_URI, String.valueOf(this.setID)),
-        		new String[] {
-        			BuckyProvider.DS_NAME,
-        			BuckyProvider.DS_WHENCREATED },
+                new String[] {
+                    BuckyProvider.DS_NAME,
+                    BuckyProvider.DS_WHENCREATED },
                 null,
                 null,
-        		null);
+                null);
         int name_index = sets.getColumnIndex(BuckyProvider.DS_NAME);
         int whencreated_index = sets.getColumnIndex(BuckyProvider.DS_WHENCREATED);
         sets.moveToFirst();
@@ -125,21 +125,21 @@ public class SetDetail extends Activity {
     }
 
 
-	protected void onResume() {
-		super.onResume();
-		LinearLayout header = (LinearLayout)findViewById(R.id.SetDetailHeader);
+    protected void onResume() {
+        super.onResume();
+        LinearLayout header = (LinearLayout)findViewById(R.id.SetDetailHeader);
 
-		switch (Resources.getSystem().getConfiguration().orientation) {
-		case Configuration.ORIENTATION_UNDEFINED:
-		case Configuration.ORIENTATION_PORTRAIT:
-		case Configuration.ORIENTATION_SQUARE:
-			header.setOrientation(LinearLayout.VERTICAL);
-			Log.d(TAG, "SetDetail: drawing header in portrait.");
-			break;
-		case Configuration.ORIENTATION_LANDSCAPE:
-			header.setOrientation(LinearLayout.HORIZONTAL);
-			Log.d(TAG, "SetDetail: drawing header in landscape.");
-			break;
-		}
-	}
+        switch (Resources.getSystem().getConfiguration().orientation) {
+        case Configuration.ORIENTATION_UNDEFINED:
+        case Configuration.ORIENTATION_PORTRAIT:
+        case Configuration.ORIENTATION_SQUARE:
+            header.setOrientation(LinearLayout.VERTICAL);
+            Log.d(TAG, "SetDetail: drawing header in portrait.");
+            break;
+        case Configuration.ORIENTATION_LANDSCAPE:
+            header.setOrientation(LinearLayout.HORIZONTAL);
+            Log.d(TAG, "SetDetail: drawing header in landscape.");
+            break;
+        }
+    }
 }

@@ -33,9 +33,9 @@
         android:layout_width="fill_parent"
         android:layout_weight="2"
         android:text="@string/new_set_numeric_type"/>
-	  <RadioButton android:id="@+id/NewSetTextRadioButton"
-		android:layout_width="fill_parent"
-		android:layout_weight="2"
+      <RadioButton android:id="@+id/NewSetTextRadioButton"
+        android:layout_width="fill_parent"
+        android:layout_weight="2"
         android:text="@string/new_set_text_type" />
     </RadioGroup>
   </LinearLayout>
