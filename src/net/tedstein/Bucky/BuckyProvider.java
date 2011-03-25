@@ -161,9 +161,66 @@ public class BuckyProvider extends ContentProvider {
 	}
 
 	@Override
-	public int delete(Uri arg0, String arg1, String[] arg2) {
-		// TODO: Allow data deletion.
-		return 0;
+	public int delete(Uri uri, String selection, String[] selectionArgs) {
+	    Log.d(TAG, "Handling delete on URI: " + uri);
+	    SQLiteDatabase db = dbh.getWritableDatabase();
+	    int rows_affected;
+
+	    switch (URIPattern.values()[urim.match(uri)]) {
+        case SINGLE_DATASET:
+            if (selection == null || selection.equals("")) {
+                selection = DS_ID + "=?";
+            } else {
+                selection += " AND " + DS_ID + "=?";
+            }
+
+            if (selectionArgs == null) {
+                selectionArgs = new String[1];
+                selectionArgs[0] = uri.getPathSegments().get(1);
+            } else {
+                // Copy the array to a slightly larger one to make space.
+                int old_size = selectionArgs.length;
+                String[] tmp = new String[old_size + 1];
+                for (int i = 0; i < old_size; ++i) {
+                    tmp[i] = selectionArgs[i];
+                    tmp[old_size] = uri.getPathSegments().get(1);
+                }
+                selectionArgs = tmp;
+            }
+            // Fall through to the unspecified dataset URI handling code.
+	    case DATASETS:
+	        rows_affected = db.delete(DATASET_TABLE, selection, selectionArgs);
+	        break;
+	    case SINGLE_DATAPOINT:
+            if (selection == null || selection.equals("")) {
+                selection = DP_ID + "=?";
+            } else {
+                selection += " AND " + DP_ID + "=?";
+            }
+
+            if (selectionArgs == null) {
+                selectionArgs = new String[1];
+                selectionArgs[0] = uri.getPathSegments().get(1);
+            } else {
+                // Copy the array to a slightly larger one to make space.
+                int old_size = selectionArgs.length;
+                String[] tmp = new String[old_size + 1];
+                for (int i = 0; i < old_size; ++i) {
+                    tmp[i] = selectionArgs[i];
+                }
+                tmp[old_size] = uri.getPathSegments().get(1);
+                selectionArgs = tmp;
+            }
+            // Fall through to the unspecified datapoint URI handling code.
+	    case DATAPOINTS:
+            rows_affected = db.delete(DATAPOINT_TABLE, selection, selectionArgs);
+            break;
+	    default:
+	        throw new IllegalArgumentException("insert: unmatched URI: " + uri);
+	    }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rows_affected;
 	}
 
 	@Override
@@ -198,7 +255,7 @@ public class BuckyProvider extends ContentProvider {
 				for (int i = 0; i < old_size; ++i) {
 					tmp[i] = selectionArgs[i];
 				}
-				tmp[old_size] = uri.getPathSegments().get(1);
+                tmp[old_size] = uri.getPathSegments().get(1);
 				selectionArgs = tmp;
 			}
 			// Fall through to the unspecified dataset URI handling code.
