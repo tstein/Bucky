@@ -82,10 +82,10 @@ public class SetDetail extends Activity {
             // TODO
             return true;
         case R.id.setdetail_item_context_delete:
-            String where = BuckyProvider.DP_ID + "=?";
-            String[] whereArgs = new String[] {
-                String.valueOf(point_id) };
-            cr.delete(BuckyProvider.DATAPOINTS_URI, where, whereArgs);
+            Uri datapoint_uri = Uri.withAppendedPath(
+                    BuckyProvider.DATAPOINTS_URI,
+                    String.valueOf(point_id));
+            cr.delete(datapoint_uri, null, null);
             return true;
         default:
             return super.onContextItemSelected(item);
