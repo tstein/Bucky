@@ -26,6 +26,8 @@ public class SetDetail extends Activity {
 	private static final String TAG = "Bucky";
 
 	private int setID;
+	private Cursor mPointsCursor;
+	private SummaryStatistics mSummaryStatistics;
 
 
 
@@ -50,33 +52,23 @@ public class SetDetail extends Activity {
 
 
 	private void updateStats() {
-        Cursor points = managedQuery(BuckyProvider.DATAPOINTS_URI,
-        		new String[] {
-        			BuckyProvider.DP_ID,
-        			BuckyProvider.DP_WHENCREATED,
-        			BuckyProvider.DP_KEY,
-        			BuckyProvider.DP_VALUE },
-        		BuckyProvider.DP_SETID + "=?",
-        		new String[] {
-        			String.valueOf(setID) },
-        		BuckyProvider.DP_ID + " ASC");
-
         // Do a single pass over the data to collect stats.
-        SummaryStatistics stats = new SummaryStatistics();
-        int value_index = points.getColumnIndex(BuckyProvider.DP_VALUE);
-        points.moveToFirst();
-        while (points.isAfterLast() == false) {
-        	stats.addValue(Double.parseDouble(points.getString(value_index)));
-        	points.moveToNext();
+		mSummaryStatistics.clear();
+        int value_index = mPointsCursor.getColumnIndex(BuckyProvider.DP_VALUE);
+        mPointsCursor.moveToFirst();
+        while (mPointsCursor.isAfterLast() == false) {
+            double value = Double.parseDouble(mPointsCursor.getString(value_index));
+            mSummaryStatistics.addValue(value);
+            mPointsCursor.moveToNext();
         }
 
         // Fill in stats values from the SummaryStatistics.
         TextView mean = (TextView)findViewById(R.id.SetDetailMeanValue);
         TextView min = (TextView)findViewById(R.id.SetDetailMinValue);
         TextView max = (TextView)findViewById(R.id.SetDetailMaxValue);
-        mean.setText(String.format("%.2f", stats.getMean()));
-        min.setText(String.valueOf(stats.getMin()));
-        max.setText(String.valueOf(stats.getMax()));
+        mean.setText(String.format("%.2f", mSummaryStatistics.getMean()));
+        min.setText(String.valueOf(mSummaryStatistics.getMin()));
+        max.setText(String.valueOf(mSummaryStatistics.getMax()));
 	}
 
 
@@ -88,6 +80,18 @@ public class SetDetail extends Activity {
         Intent i = getIntent();
         this.setID = i.getIntExtra(BuckyProvider.DS_ID, BuckyProvider.NO_DATASET);
         assert this.setID != BuckyProvider.NO_DATASET : "SetDetail was started without a dataset!";
+
+        // Create Activity-persistent objects.
+        this.mPointsCursor = managedQuery(BuckyProvider.DATAPOINTS_URI,
+                new String[] {
+                BuckyProvider.DP_ID,
+                BuckyProvider.DP_WHENCREATED,
+                BuckyProvider.DP_VALUE },
+            BuckyProvider.DP_SETID + "=?",
+            new String[] {
+                String.valueOf(setID) },
+            BuckyProvider.DP_WHENCREATED + " DESC");
+        this.mSummaryStatistics = new SummaryStatistics();
 
         // Retrieve general info from the datasets table.
         Cursor sets = managedQuery(
@@ -103,6 +107,7 @@ public class SetDetail extends Activity {
         sets.moveToFirst();
         String name = sets.getString(name_index);
         long whencreated = sets.getLong(whencreated_index);
+        sets.close();
 
         // Display all our summary info about this dataset.
         TextView name_view = (TextView)findViewById(R.id.SetDetailName);
@@ -112,19 +117,10 @@ public class SetDetail extends Activity {
         updateStats();
 
         // Set up the ListView with the individual datapoints.
-        Cursor points = managedQuery(BuckyProvider.DATAPOINTS_URI,
-        		new String[] {
-        			BuckyProvider.DP_ID,
-        			BuckyProvider.DP_WHENCREATED,
-        			BuckyProvider.DP_VALUE },
-        		BuckyProvider.DP_SETID + "=?",
-        		new String[] {
-        			String.valueOf(setID) },
-        		BuckyProvider.DP_WHENCREATED + " DESC");
         ListView points_list = (ListView)findViewById(R.id.SetDetailData);
         DatapointCursorAdapter points_adapter = new DatapointCursorAdapter(this,
-        		points,
-        		R.layout.setdetail_item);
+                this.mPointsCursor,
+                R.layout.setdetail_item);
         points_list.setAdapter(points_adapter);
     }
 
