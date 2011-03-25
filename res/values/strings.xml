@@ -27,7 +27,11 @@
   <string name="preferences_menu">Preferences</string>
   <string name="edit_menu">Edit</string>
   <string name="delete_menu">Delete</string>
+  <string name="dataset_delete_prompt">Delete dataset \"%s\"?</string>
+  <string name="confirm">Yes</string>
+  <string name="decline">No</string>
 
   <!-- messages -->
   <string name="no_datasets_message">You don\'t have any data yet! Press Menu and choose &quot;Add dataset&quot; to get started.</string>
+  <string name="dataset_delete_confirmation">Deleted dataset \"%s\".</string>
 </resources>
