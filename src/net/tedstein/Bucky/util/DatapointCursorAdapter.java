@@ -39,7 +39,7 @@ public class DatapointCursorAdapter extends CursorAdapter {
         value.setText(cursor.getString(value_index));
         date.setText(new Date(cursor.getLong(date_index)).toString());
 
-        // Store an Integer with the set's ID as view's tag for later retrieval.
+        // Store an Integer with the point's ID as view's tag for later retrieval.
         view.setTag(new Integer(cursor.getInt(id_index)));
     }
 }
