@@ -31,6 +31,7 @@ public class Overview extends Activity {
     private static final String TAG = "Bucky";
 
     private int total_sets = 0;
+    private Cursor mSetCursor;
 
 
 
@@ -120,37 +121,29 @@ public class Overview extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.overview);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         final Context context = this;
 
-        // Query BuckyProvider to see if we have any datasets to show.
-        Cursor sets = getContentResolver().query(
+        mSetCursor = getContentResolver().query(
                 BuckyProvider.DATASETS_URI,
                 null,
                 null,
                 null,
                 null);
-        while (sets.isAfterLast() == false) {
-            ++total_sets;
-            sets.moveToNext();
-        }
 
+        // See if we have any sets to display.
+        while (mSetCursor.isAfterLast() == false) {
+            ++total_sets;
+            mSetCursor.moveToNext();
+        }
         if (total_sets == 0) {
-            sets.close();
             Log.d(TAG, "Overview: No sets to display.");
-            return;
         }
 
         // Let DatasetCursorAdapter do all the heavy lifting to populate the list.
         ListView setlist = (ListView)findViewById(R.id.OverviewSetList);
         DatasetCursorAdapter sets_adapter = new DatasetCursorAdapter(
                 this,
-                sets,
+                mSetCursor,
                 R.layout.overview_item);
         setlist.setAdapter(sets_adapter);
         setlist.setOnItemClickListener(new OnItemClickListener() {
@@ -163,4 +156,10 @@ public class Overview extends Activity {
         });
         registerForContextMenu(setlist);
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+   }
 }
