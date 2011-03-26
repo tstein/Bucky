@@ -43,7 +43,7 @@ public class DatapointAdder {
         final Context context = c;
         final int set = setId;
         final Dialog new_datapoint = new Dialog(context);
-        new_datapoint.setTitle("New datapoint");
+        new_datapoint.setTitle(context.getString(R.string.datapoint_create_prompt));
 
         LayoutInflater infl = LayoutInflater.from(context);
         LinearLayout dialog_contents = (LinearLayout)infl.inflate(R.layout.newpoint_dialog, null);
