@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+/*
+ * This class will produce a list that shows both the name and the createdAt time of each set. To
+ * display only the name, check out SimpleDatasetCursorAdapter.
+ */
 public class DatasetCursorAdapter extends CursorAdapter {
     private int layout;
 

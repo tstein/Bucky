@@ -27,6 +27,7 @@
   <string name="preferences_menu">Preferences</string>
   <string name="edit_menu">Edit</string>
   <string name="delete_menu">Delete</string>
+  <string name="choose_set_prompt">Choose a dataset</string>
   <string name="datapoint_create_prompt">New datapoint</string>
   <string name="dataset_delete_prompt">Delete dataset \"%s\"?</string>
   <string name="confirm">Yes</string>

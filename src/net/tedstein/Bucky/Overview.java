@@ -2,6 +2,8 @@ package net.tedstein.Bucky;
 
 import net.tedstein.Bucky.util.DatapointAdder;
 import net.tedstein.Bucky.util.DatasetCursorAdapter;
+import net.tedstein.Bucky.util.SetChoiceHandler;
+import net.tedstein.Bucky.util.SetChooser;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -42,7 +44,7 @@ public class Overview extends Activity {
         return true;
     }
 
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -50,7 +52,13 @@ public class Overview extends Activity {
             startActivity(new Intent(this, CreateSet.class));
             return true;
         case R.id.overview_add_datapoint:
-            DatapointAdder.createAddPointDialog(this, 1);
+            final Context context = this;
+            SetChooser.createSetChooserDialog(this, mSetCursor, new SetChoiceHandler(){
+                @Override
+                public void onSetChosen(int setId) {
+                    DatapointAdder.createAddPointDialog(context, setId);
+                }
+            });
             return true;
         default:
             return super.onOptionsItemSelected(item);
