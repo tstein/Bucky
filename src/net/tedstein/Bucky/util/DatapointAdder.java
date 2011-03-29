@@ -116,6 +116,17 @@ public class DatapointAdder {
             @Override
             public void onClick(View v) {
                 String data = data_field.getText().toString();
+                // Let Double.parseDouble figure out if the input was valid.
+                try {
+                    Double.parseDouble(data);
+                } catch (NumberFormatException nfe) {
+                    Toast.makeText(context,
+                            context.getString(R.string.invalid_data_input, data),
+                            Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
                 long createdAt = Calendar.getInstance().getTimeInMillis();
                 long timestamp = createdAt;
                 if (now.isChecked() == false) {
