@@ -35,6 +35,7 @@
 
   <!-- messages -->
   <string name="no_datasets_message">You don\'t have any data yet! Press Menu and choose &quot;Add dataset&quot; to get started.</string>
+  <string name="add_dataset_first_message">You need to add a dataset first!</string>
   <string name="dataset_delete_confirmation">Deleted dataset \"%s\".</string>
   <string name="invalid_data_input">Cannot add \"%s\" because that isn\'t a number!</string>
 </resources>

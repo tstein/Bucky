@@ -53,6 +53,14 @@ public class Overview extends Activity {
             return true;
         case R.id.overview_add_datapoint:
             final Context context = this;
+            if (total_sets == 0) {
+                Toast.makeText(context,
+                        R.string.add_dataset_first_message,
+                        Toast.LENGTH_SHORT)
+                .show();
+                return true;
+            }
+
             SetChooser.createSetChooserDialog(this, mSetCursor, new SetChoiceHandler(){
                 @Override
                 public void onSetChosen(int setId) {
@@ -142,6 +150,7 @@ public class Overview extends Activity {
                 null);
 
         // See if we have any sets to display.
+        total_sets = 0;
         while (mSetCursor.isAfterLast() == false) {
             ++total_sets;
             mSetCursor.moveToNext();
